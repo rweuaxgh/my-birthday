@@ -15,95 +15,139 @@
         }
         
         body { 
-            /* خلفية حمراء إمبراطورية عميقة مع تدرج */
+            /* خلفية إمبراطورية حمراء فخمة كبداية */
             background: var(--imperial-red);
             background: radial-gradient(circle, #8b0000 0%, #4a0000 100%);
             color: var(--w); 
-            font-family: 'Times New Roman', Times, serif; /* خط كلاسيكي فخم */
+            font-family: 'Times New Roman', serif;
             margin: 0; display: flex; justify-content: center; align-items: center; 
-            min-height: 100vh; overflow-x: hidden; position: relative;
+            min-height: 100vh; overflow: hidden; position: relative;
+            transition: 1s ease-in-out; /* لتغيير الخلفية */
         }
 
-        /* خلفية التنانين الذهبية المتحركة */
-        #dragon-bg {
+        /* غيوم الحظ الصينية المتحركة في الخلفية */
+        #xiangyun-bg {
             position: absolute; width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 10c-5-5-15-5-20 0-5 5-5 15 0 20s15 5 20 0zm0 80c5 5 15 5 20 0 5-5 5-15 0-20s-15-5-20 0z' fill='%23ffd700' fill-opacity='0.05'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 50'%3E%3Cpath d='M10 30c0-10 10-20 20-20h40c10 0 20 10 20 20v10H10V30z' fill='%23c5a059' fill-opacity='0.05'/%3E%3C/svg%3E");
             background-repeat: repeat; background-size: 150px;
-            animation: moveDragons 20s linear infinite;
-            z-index: 1; opacity: 0.5;
+            animation: moveClouds 20s linear infinite; z-index: 1;
         }
 
-        @keyframes moveDragons { from { background-position: 0 0; } to { background-position: 500px 500px; } }
+        @keyframes moveClouds { from { background-position: 0 0; } to { background-position: 500px 500px; } }
 
-        /* واجهة الدخول الإمبراطورية */
-        #auth-screen { text-align: center; z-index: 100; position: relative; }
+        /* الأطر الزخرفية الصينية (Chinese Lattice) في الواجهة الثانية */
+        #lattice-bg {
+            position: absolute; width: 100%; height: 100%; display: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M0 0h40v40H0V0zm20 10l10 5 10-5-10-5-10 5z' fill='%23c5a059' fill-opacity='0.1'/%3E%3C/svg%3E");
+            background-repeat: repeat; animation: moveLattice 15s linear infinite;
+            z-index: 2; opacity: 0; transition: opacity 2s;
+        }
+
+        @keyframes moveLattice { from { background-position: 0 0; } to { background-position: 300px 300px; } }
+
+        /* خلفية التنانين الذهبية المتحركة في الواجهة الثالثة */
+        #dragon-bg {
+            position: absolute; width: 100%; height: 100%; display: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 10c-5-5-15-5-20 0-5 5-5 15 0 20s15 5 20 0zm0 80c5 5 15 5 20 0 5-5 5-15 0-20s-15-5-20 0z' fill='%23ffd700' fill-opacity='0.08'/%3E%3C/svg%3E");
+            background-repeat: repeat; background-size: 150px;
+            animation: moveDragons 10s linear infinite; z-index: 3;
+            opacity: 0; transition: opacity 2s;
+        }
+
+        @keyframes moveDragons { from { background-position: 0 0; } to { background-position: 400px 400px; } }
+
+        /* الواجهة الأولى: قاعة الختم الإمبراطوري */
+        #auth-screen { text-align: center; z-index: 100; position: relative; animation: fadeIn 2s; }
         .imperial-input { 
             background: rgba(0, 0, 0, 0.4); border: 2px solid var(--gold); 
-            color: var(--w); padding: 18px; border-radius: 0; /* حواف حادة */
-            text-align: center; width: 250px; outline: none; 
-            font-family: 'Courier New', monospace; letter-spacing: 2px;
-            box-shadow: 0 0 15px var(--gold); transition: 0.3s;
+            color: white; padding: 18px; border-radius: 0; text-align: center; 
+            width: 250px; outline: none; box-shadow: 0 0 15px var(--gold);
+            font-size: 1.2rem; font-family: 'Courier New', monospace; letter-spacing: 2px;
         }
-        .imperial-input:focus { border-color: var(--bright-gold); box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); }
 
-        /* العد التنازلي */
         #countdown-screen { display: none; font-size: 8rem; color: var(--bright-gold); text-shadow: 0 0 40px var(--bright-gold); z-index: 100; position: relative; }
 
-        /* الواجهة الرئيسية */
-        #main-system { display: none; width: 90%; max-width: 550px; text-align: center; z-index: 100; position: relative; padding: 40px 0; }
-        .imperial-card { 
-            background: var(--glass); backdrop-filter: blur(15px); 
-            border-radius: 5px; padding: 35px; border: 3px double var(--gold); 
+        /* الواجهة الثانية: معرض السلالة */
+        #main-system { display: none; width: 95%; max-width: 550px; text-align: center; z-index: 100; position: relative; padding: 40px 0; opacity: 0; transition: opacity 2s; }
+        .dynasty-card { 
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(15px); 
+            border: 3px double var(--gold); padding: 30px; border-radius: 5px;
             box-shadow: 0 0 60px rgba(0,0,0,0.8);
         }
 
         .hbd-text { 
-            font-size: 2.8rem; font-weight: 300; letter-spacing: 3px;
-            background: linear-gradient(45deg, var(--gold), #fff, var(--gold)); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            font-size: 2.8rem; letter-spacing: 3px; font-weight: 300;
+            background: linear-gradient(to right, var(--gold), #fff, var(--gold));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: 'Georgia', serif;
         }
 
         /* معرض الصور الإمبراطوري */
         .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 30px 0; }
-        .img-item { width: 100%; height: 180px; object-fit: cover; border: 2px solid var(--gold); transition: 0.3s; }
-        .img-item:hover { transform: scale(1.05); border-color: var(--bright-gold); }
+        .img-item { 
+            width: 100%; height: 180px; object-fit: cover; border: 2px solid var(--gold); 
+            transition: 0.3s; filter: sepia(30%); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .img-item:hover { transform: scale(1.05); border-color: var(--bright-gold); filter: sepia(0%); }
 
-        /* الرسائل الملكية */
-        .message-box { margin-top: 30px; background: rgba(0,0,0,0.4); padding: 20px; border: 1px solid var(--gold); }
-        textarea { width: 90%; height: 80px; background: transparent; border: 1px solid var(--gold); color: white; padding: 10px; resize: none; outline: none; text-align: right; }
+        /* الواجهة الثالثة: القصر الذهبي للذكرى */
+        #memory-palace { display: none; width: 95%; max-width: 550px; text-align: center; z-index: 100; position: relative; padding: 40px 0; opacity: 0; transition: opacity 2s; }
+        .golden-card { 
+            background: rgba(255, 215, 0, 0.08); backdrop-filter: blur(20px); 
+            border: 4px solid var(--bright-gold); padding: 35px; border-radius: 0;
+            box-shadow: 0 0 70px rgba(255, 215, 0, 0.3); position: relative;
+        }
+        /* إطار زخرفي صيني خارجي */
+        .golden-card::after {
+            content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border: 2px solid var(--gold); pointer-events: none;
+        }
+
+        .imperial-msg {
+            font-size: 1.1rem; line-height: 2; color: #ddd; text-align: right;
+            border-top: 1px dashed var(--gold); margin-top: 15px; padding: 15px; font-family: sans-serif;
+        }
+
+        /* قسم الرسائل الملكي المرتبط بـ Formspree */
+        .message-box { margin-top: 30px; background: rgba(0,0,0,0.5); padding: 20px; border: 1px solid var(--gold); }
+        textarea { width: 90%; height: 80px; background: rgba(0,0,0,0.3); border: 1px solid var(--gold); color: white; padding: 10px; resize: none; outline: none; text-align: right; font-family: sans-serif; }
 
         .btn-imperial { 
-            background: var(--imperial-red); color: var(--gold); border: 2px solid var(--gold); 
-            padding: 12px 30px; border-radius: 0; cursor: pointer; font-weight: bold; margin-top: 15px;
-            letter-spacing: 2px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: 0.3s;
+            background: var(--gold); color: black; border: 2px solid var(--black); 
+            padding: 12px 30px; font-weight: bold; cursor: pointer; margin-top: 15px; letter-spacing: 2px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: 0.3s; font-family: 'Courier New', monospace;
         }
-        .btn-imperial:hover { background: var(--gold); color: black; border-color: var(--bright-gold); }
+        .btn-imperial:hover { background: var(--bright-gold); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
         
-        #status { font-size: 0.8rem; margin-top: 10px; color: var(--bright-gold); }
+        #status { font-size: 0.8rem; margin-top: 10px; color: var(--bright-gold); font-family: sans-serif; }
 
         /* العناصر الطافية الإمبراطورية (تساقط) */
         .particle { position: fixed; top: -10%; animation: fall linear forwards; z-index: 50; pointer-events: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div id="dragon-bg"></div>
+    <div id="xiangyun-bg"></div>
 
     <div id="auth-screen">
-        <div style="font-size: 4rem;">🏮</div>
-        <h2 style="color: var(--gold); letter-spacing: 3px;">IMPERIAL ACCESS</h2>
+        <div style="background-color: var(--imperial-red); border: 4px solid var(--gold); width: 120px; height: 120px; display: flex; justify-content: center; align-items: center; margin: 0 auto 30px; box-shadow: 0 0 30px rgba(139, 0, 0, 0.6);">
+            <div style="font-size: 2.5rem; color: var(--gold); font-weight: bold; font-family: 'Georgia', serif;">法<br>提玛</div>
+        </div>
+        <h2 style="color: var(--gold); letter-spacing: 3px; font-weight: 300;">IMPERIAL DECREE</h2>
         <input type="password" id="pass" class="imperial-input" placeholder="ACCESS CODE">
         <br><br>
-        <button class="btn-imperial" onclick="unlock()">INITIALIZE 👑</button>
+        <button class="btn-imperial" onclick="unlock()">OPEN SYSTEM 👑</button>
     </div>
 
     <div id="countdown-screen">10</div>
 
+    <div id="lattice-bg"></div>
     <div id="main-system">
-        <div class="imperial-card">
+        <div class="dynasty-card">
             <div class="hbd-text">THE 20th ANNIVERSARY</div>
-            <p style="color: var(--gold); font-size: 1.2rem;">أهلاً بكنّ في قصر مفاجآت الإمبراطورة فـاطـمـة 👑</p>
+            <p style="color: var(--gold); font-size: 1.3rem; letter-spacing: 2px;">أهلاً بكنّ في معرض السلالة الإمبراطورية لـ فاطمة 🏮</p>
             
             <audio id="bg-music" loop preload="auto">
                 <source src="https://files.catbox.moe/cpw960.mp3" type="audio/mpeg">
@@ -115,16 +159,35 @@
                 <img src="jpg.3.jpeg" class="img-item">
                 <img src="jpg.4.jpeg" class="img-item">
             </div>
+            
+            <p style="font-size: 0.8rem; color: #aaa; margin-top: 15px;">استمتعي بالموسيقى والصور.. المفاجأة لم تنتهِ بعد! ✨</p>
+        </div>
+    </div>
+
+    <div id="dragon-bg"></div>
+    <div id="memory-palace">
+        <div class="golden-card">
+            <div class="hbd-text" style="background: linear-gradient(to right, #fff, var(--bright-gold), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">IMPERIAL DECREE</div>
+            <p style="color: var(--bright-gold); font-size: 1.4rem; font-weight: bold; text-shadow: 0 0 20px var(--bright-gold);">يوم ميلاد سعيد لملكتنا فاطمة! 🥂</p>
+            
+            <div class="imperial-msg">
+                كبرتُ عاماً.. وانتقلتُ لعقد جديد من السلطان والتألق. <br>
+                اليوم، أحتفلُ بمرور عشرين عاماً من الجمال والطموح بوجودكنّ في قصر مفاجآتي. <br>
+                شكراً لكونكنّ جزءاً من أيامي! تفضلوا بمشاهدة صوري. <br>
+                اتركي لي كلمة للذكرى تصلني كرسالة إمبراطورية مختومة!
+            </div>
 
             <div class="message-box">
                 <form id="my-form" action="https://formspree.io/f/xpqoqooq" method="POST">
-                    <p style="margin:0; font-size: 0.9rem; color: var(--gold);">اكتبي رسالتكِ الإمبراطورية ✍️</p>
+                    <p style="margin:0; font-size: 1rem; color: var(--bright-gold);">اكتبي رسالتكِ الملكية المختومة ✍️</p>
                     <textarea name="message" required placeholder="ماذا تودين أن تقولي لإمبراطورة اليوم؟"></textarea>
                     <br>
-                    <button type="submit" class="btn-imperial" style="padding: 8px 20px; font-size: 0.8rem;">إرسال للإيميل 💌</button>
+                    <button id="submit-btn" type="submit" class="btn-imperial" style="padding: 10px 25px; font-size: 0.8rem;">إرسال للإيميل 💌</button>
                 </form>
                 <p id="status"></p>
             </div>
+            
+            <p style="font-size: 0.7rem; color: rgba(255, 215, 0, 0.4); margin-top: 30px; font-family: monospace; letter-spacing: 2px;">Developed with Love by Fatima | Royal Dynasty Edition 👩‍💻</p>
         </div>
     </div>
 
@@ -143,15 +206,53 @@
             let c = 10;
             const t = setInterval(() => {
                 c--; s.innerText = c;
-                if(c === 0) { clearInterval(t); s.style.display = 'none'; showMain(); }
+                if(c === 0) { clearInterval(t); s.style.display = 'none'; transitionToDynasty(); }
             }, 1000);
         }
 
-        function showMain() {
-            document.getElementById('main-system').style.display = 'block';
+        // الانتقال للواجهة الثانية
+        function transitionToDynasty() {
+            // تفعيل الأطر الصينية في الخلفية
+            document.getElementById('lattice-bg').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('lattice-bg').style.opacity = '1';
+                document.getElementById('xiangyun-bg').style.opacity = '0'; // إخفاء الغيوم ببطء
+            }, 10);
+            
+            // إظهار الواجهة الثانية بنعومة
+            const mainSystem = document.getElementById('main-system');
+            mainSystem.style.display = 'block';
+            setTimeout(() => { mainSystem.style.opacity = '1'; }, 10);
+            
             document.getElementById('bg-music').play();
-            // بدء تساقط العناصر الإمبراطورية
             setInterval(createImperialParticles, 300);
+
+            // جدولة الانتقال التلقائي للواجهة الثالثة بعد 7 ثوانٍ
+            setTimeout(transitionToMemoryPalace, 7000);
+        }
+
+        // الانتقال للواجهة الثالثة النهائية تلقائياً
+        function transitionToMemoryPalace() {
+            // تغيير خلفية body للذهبي الفخم
+            document.body.style.background = 'radial-gradient(circle, #ffd700 0%, #c5a059 100%)';
+            document.body.style.background = 'radial-gradient(circle, #0a0a0a 0%, #1a1a1a 100%)'; /* للحفاظ على الخلفية الغامقة والوقار */
+
+            // تفعيل التنانين الذهبية في الخلفية
+            document.getElementById('dragon-bg').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('dragon-bg').style.opacity = '1';
+                document.getElementById('lattice-bg').style.opacity = '0'; // إخفاء الأطر ببطء
+            }, 10);
+
+            // إخفاء الواجهة الثانية وإظهار الثالثة
+            document.getElementById('main-system').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('main-system').style.display = 'none';
+                
+                const memoryPalace = document.getElementById('memory-palace');
+                memoryPalace.style.display = 'block';
+                setTimeout(() => { memoryPalace.style.opacity = '1'; }, 10);
+            }, 2000); // وقت الاختفاء والظهور (Fade out/Fade in)
         }
 
         // التعامل مع Formspree
@@ -166,19 +267,19 @@
             headers: { 'Accept': 'application/json' }
           }).then(response => {
             if (response.ok) {
-              status.innerHTML = "تم الإرسال بنجاح! شكراً لكِ 💖";
+              status.innerHTML = "تم الإرسال بنجاح! شكراً لكِ أيتها الجميلة 💖";
               form.reset();
             } else { status.innerHTML = "حدث خطأ في الإرسال الإمبراطوري."; }
           }).catch(error => { status.innerHTML = "هناك مشكلة في الاتصال بالسيرفر."; });
         }
         form.addEventListener("submit", handleSubmit);
 
-        // عناصر طافية إمبراطورية (فوانيس، لوتس، تنانين صغيرة)
+        // عناصر طافية إمبراطورية (تساقط)
         function createImperialParticles() {
             const h = document.createElement('div');
             h.className = 'particle';
             // رموز فخمة
-            h.innerHTML = ["🏮", "🌸", "👑", "💎", "福", "喜"][Math.floor(Math.random()*6)];
+            h.innerHTML = ["🏮", "🌸", "👑", "💎", "福", "喜", "寿"][Math.floor(Math.random()*7)];
             h.style.left = Math.random() * 100 + "vw";
             h.style.fontSize = "30px";
             h.style.animationDuration = (Math.random() * 3 + 4) + "s"; // سرعات مختلفة
