@@ -2,88 +2,188 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Fatima's 20th Anniversary 👑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fatima's Imperial 20th 👑</title>
     <style>
-        :root { --p: #ff85a1; --dp: #f72585; --g: #ffd700; --b: #0a0a0a; }
-        body { background: var(--b); color: white; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow-x: hidden; }
-        #auth-screen { text-align: center; z-index: 100; }
-        .pink-input { background: transparent; border: 2px solid var(--p); color: white; padding: 15px; border-radius: 15px; font-size: 1.2rem; text-align: center; outline: none; box-shadow: 0 0 15px var(--p); margin-bottom: 20px; }
-        #countdown-screen { display: none; text-align: center; font-size: 8rem; color: var(--g); text-shadow: 0 0 30px var(--g); font-family: monospace; }
-        #main-system { display: none; width: 90%; max-width: 600px; text-align: center; padding: 20px 0; }
-        .glass-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border-radius: 30px; padding: 30px; border: 1px solid var(--p); box-shadow: 0 0 40px rgba(255, 133, 161, 0.3); }
-        .hbd-text { font-size: 3rem; font-weight: 900; background: linear-gradient(to right, var(--p), var(--g), var(--dp)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 10px 0; }
-        #gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 25px; }
-        .img-item { width: 100%; height: 200px; object-fit: cover; border-radius: 20px; border: 2px solid var(--p); }
-        .btn { background: linear-gradient(45deg, var(--p), var(--dp)); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
-        .heart { position: fixed; top: -10%; animation: fall linear forwards; z-index: 50; }
+        :root { 
+            --imperial-red: #8b0000; /* أحمر إمبراطوري عميق */
+            --gold: #c5a059; /* ذهبي ملكي خافت */
+            --bright-gold: #ffd700; /* ذهبي براق */
+            --charcoal: #1a1a1a; /* أسود فحمي للأطر */
+            --glass: rgba(255, 255, 255, 0.03); /* زجاجي خفيف جداً */
+            --w: #ffffff; 
+        }
+        
+        body { 
+            /* خلفية حمراء إمبراطورية عميقة مع تدرج */
+            background: var(--imperial-red);
+            background: radial-gradient(circle, #8b0000 0%, #4a0000 100%);
+            color: var(--w); 
+            font-family: 'Times New Roman', Times, serif; /* خط كلاسيكي فخم */
+            margin: 0; display: flex; justify-content: center; align-items: center; 
+            min-height: 100vh; overflow-x: hidden; position: relative;
+        }
+
+        /* خلفية التنانين الذهبية المتحركة */
+        #dragon-bg {
+            position: absolute; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 10c-5-5-15-5-20 0-5 5-5 15 0 20s15 5 20 0zm0 80c5 5 15 5 20 0 5-5 5-15 0-20s-15-5-20 0z' fill='%23ffd700' fill-opacity='0.05'/%3E%3C/svg%3E");
+            background-repeat: repeat; background-size: 150px;
+            animation: moveDragons 20s linear infinite;
+            z-index: 1; opacity: 0.5;
+        }
+
+        @keyframes moveDragons { from { background-position: 0 0; } to { background-position: 500px 500px; } }
+
+        /* واجهة الدخول الإمبراطورية */
+        #auth-screen { text-align: center; z-index: 100; position: relative; }
+        .imperial-input { 
+            background: rgba(0, 0, 0, 0.4); border: 2px solid var(--gold); 
+            color: var(--w); padding: 18px; border-radius: 0; /* حواف حادة */
+            text-align: center; width: 250px; outline: none; 
+            font-family: 'Courier New', monospace; letter-spacing: 2px;
+            box-shadow: 0 0 15px var(--gold); transition: 0.3s;
+        }
+        .imperial-input:focus { border-color: var(--bright-gold); box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); }
+
+        /* العد التنازلي */
+        #countdown-screen { display: none; font-size: 8rem; color: var(--bright-gold); text-shadow: 0 0 40px var(--bright-gold); z-index: 100; position: relative; }
+
+        /* الواجهة الرئيسية */
+        #main-system { display: none; width: 90%; max-width: 550px; text-align: center; z-index: 100; position: relative; padding: 40px 0; }
+        .imperial-card { 
+            background: var(--glass); backdrop-filter: blur(15px); 
+            border-radius: 5px; padding: 35px; border: 3px double var(--gold); 
+            box-shadow: 0 0 60px rgba(0,0,0,0.8);
+        }
+
+        .hbd-text { 
+            font-size: 2.8rem; font-weight: 300; letter-spacing: 3px;
+            background: linear-gradient(45deg, var(--gold), #fff, var(--gold)); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+        }
+
+        /* معرض الصور الإمبراطوري */
+        .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 30px 0; }
+        .img-item { width: 100%; height: 180px; object-fit: cover; border: 2px solid var(--gold); transition: 0.3s; }
+        .img-item:hover { transform: scale(1.05); border-color: var(--bright-gold); }
+
+        /* الرسائل الملكية */
+        .message-box { margin-top: 30px; background: rgba(0,0,0,0.4); padding: 20px; border: 1px solid var(--gold); }
+        textarea { width: 90%; height: 80px; background: transparent; border: 1px solid var(--gold); color: white; padding: 10px; resize: none; outline: none; text-align: right; }
+
+        .btn-imperial { 
+            background: var(--imperial-red); color: var(--gold); border: 2px solid var(--gold); 
+            padding: 12px 30px; border-radius: 0; cursor: pointer; font-weight: bold; margin-top: 15px;
+            letter-spacing: 2px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: 0.3s;
+        }
+        .btn-imperial:hover { background: var(--gold); color: black; border-color: var(--bright-gold); }
+        
+        #status { font-size: 0.8rem; margin-top: 10px; color: var(--bright-gold); }
+
+        /* العناصر الطافية الإمبراطورية (تساقط) */
+        .particle { position: fixed; top: -10%; animation: fall linear forwards; z-index: 50; pointer-events: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
     </style>
 </head>
 <body>
 
+    <div id="dragon-bg"></div>
+
     <div id="auth-screen">
-        <h2 style="color: var(--p);">أهلاً يا مبرمجة فاطمة 👑</h2>
-        <input type="password" id="pass" class="pink-input" placeholder="كلمة السر">
-        <br>
-        <button class="btn" onclick="checkPass()">فتح المفاجأة 🎁</button>
+        <div style="font-size: 4rem;">🏮</div>
+        <h2 style="color: var(--gold); letter-spacing: 3px;">IMPERIAL ACCESS</h2>
+        <input type="password" id="pass" class="imperial-input" placeholder="ACCESS CODE">
+        <br><br>
+        <button class="btn-imperial" onclick="unlock()">INITIALIZE 👑</button>
     </div>
 
     <div id="countdown-screen">10</div>
 
     <div id="main-system">
-        <div class="glass-card">
-            <div class="hbd-text">HAPPY BIRTHDAY FATIMA!</div>
-            <div id="final-timer" style="color: var(--g); font-size: 1.2rem; margin-bottom: 20px; font-family: monospace;"></div>
-
-            <audio id="player" src="song,mp3.mpeg" loop></audio>
+        <div class="imperial-card">
+            <div class="hbd-text">THE 20th ANNIVERSARY</div>
+            <p style="color: var(--gold); font-size: 1.2rem;">أهلاً بكنّ في قصر مفاجآت الإمبراطورة فـاطـمـة 👑</p>
             
-            <div id="gallery">
+            <audio id="bg-music" loop preload="auto">
+                <source src="https://files.catbox.moe/cpw960.mp3" type="audio/mpeg">
+            </audio>
+
+            <div class="gallery">
                 <img src="jpg.1.jpeg" class="img-item">
                 <img src="jpg.2.jpeg" class="img-item">
                 <img src="jpg.3.jpeg" class="img-item">
                 <img src="jpg.4.jpeg" class="img-item">
             </div>
+
+            <div class="message-box">
+                <form id="my-form" action="https://formspree.io/f/xpqoqooq" method="POST">
+                    <p style="margin:0; font-size: 0.9rem; color: var(--gold);">اكتبي رسالتكِ الإمبراطورية ✍️</p>
+                    <textarea name="message" required placeholder="ماذا تودين أن تقولي لإمبراطورة اليوم؟"></textarea>
+                    <br>
+                    <button type="submit" class="btn-imperial" style="padding: 8px 20px; font-size: 0.8rem;">إرسال للإيميل 💌</button>
+                </form>
+                <p id="status"></p>
+            </div>
         </div>
     </div>
 
     <script>
-        function checkPass() {
-            const p = document.getElementById('pass').value;
-            const player = document.getElementById('player');
-            if(p === "fatima20") {
-                player.play().catch(e => console.log("Audio play failed"));
+        function unlock() {
+            if(document.getElementById('pass').value === "fatima20") {
+                document.getElementById('bg-music').play().catch(e => console.log("Audio waiting"));
                 document.getElementById('auth-screen').style.display = 'none';
-                startBigCountdown();
-            } else { alert("كلمة السر: fatima20"); }
+                startCD();
+            } else { alert("ACCESS DENIED"); }
         }
 
-        function startBigCountdown() {
-            const screen = document.getElementById('countdown-screen');
-            screen.style.display = 'block';
-            let count = 10;
-            const timer = setInterval(() => {
-                count--;
-                screen.innerText = count;
-                if(count === 0) {
-                    clearInterval(timer);
-                    screen.style.display = 'none';
-                    document.getElementById('main-system').style.display = 'block';
-                    document.getElementById('player').play();
-                    startHearts();
-                }
+        function startCD() {
+            const s = document.getElementById('countdown-screen');
+            s.style.display = 'block';
+            let c = 10;
+            const t = setInterval(() => {
+                c--; s.innerText = c;
+                if(c === 0) { clearInterval(t); s.style.display = 'none'; showMain(); }
             }, 1000);
         }
 
-        function startHearts() {
-            setInterval(() => {
-                const h = document.createElement('div');
-                h.className = 'heart';
-                h.innerHTML = ["🌸", "💖", "✨", "👑"][Math.floor(Math.random()*4)];
-                h.style.left = Math.random() * 100 + "vw";
-                h.style.animationDuration = (Math.random() * 3 + 2) + "s";
-                document.body.appendChild(h);
-                setTimeout(() => h.remove(), 5000);
-            }, 300);
+        function showMain() {
+            document.getElementById('main-system').style.display = 'block';
+            document.getElementById('bg-music').play();
+            // بدء تساقط العناصر الإمبراطورية
+            setInterval(createImperialParticles, 300);
+        }
+
+        // التعامل مع Formspree
+        var form = document.getElementById("my-form");
+        async function handleSubmit(event) {
+          event.preventDefault();
+          var status = document.getElementById("status");
+          var data = new FormData(event.target);
+          fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          }).then(response => {
+            if (response.ok) {
+              status.innerHTML = "تم الإرسال بنجاح! شكراً لكِ 💖";
+              form.reset();
+            } else { status.innerHTML = "حدث خطأ في الإرسال الإمبراطوري."; }
+          }).catch(error => { status.innerHTML = "هناك مشكلة في الاتصال بالسيرفر."; });
+        }
+        form.addEventListener("submit", handleSubmit);
+
+        // عناصر طافية إمبراطورية (فوانيس، لوتس، تنانين صغيرة)
+        function createImperialParticles() {
+            const h = document.createElement('div');
+            h.className = 'particle';
+            // رموز فخمة
+            h.innerHTML = ["🏮", "🌸", "👑", "💎", "福", "喜"][Math.floor(Math.random()*6)];
+            h.style.left = Math.random() * 100 + "vw";
+            h.style.fontSize = "30px";
+            h.style.animationDuration = (Math.random() * 3 + 4) + "s"; // سرعات مختلفة
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 7000);
         }
     </script>
 </body>
